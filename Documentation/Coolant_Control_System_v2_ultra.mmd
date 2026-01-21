@@ -28,6 +28,8 @@ flowchart
     %%D10((D10))
     %%D11((D11))
     %%D12((D12))
+    SDA[SDA]
+    SCL[SCL]
 MCU@{shape: card ,label: "Arduino UNO\ncontroller"}
 HWMIN@{shape: event ,label: "MIN level sensor"}
 HWMAX@{shape: event ,label: "MAX level sensor"}
@@ -52,7 +54,10 @@ HWVALVE@{shape: ,label: "12V solenoid valve"}
         
         MCU -->|control| HWRELAY
         HWRELAY -->|switch 12V| HWVALVE
-        I2C --> MCU
+        I2C --> SDA
+        I2C --> SCL
+        SDA --> MCU
+        SCL --> MCU
     end
 
 Strat((Start))
