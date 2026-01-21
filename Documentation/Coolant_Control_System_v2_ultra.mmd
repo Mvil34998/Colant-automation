@@ -5,8 +5,6 @@ config:
   elk:
     mergeEdges: true
     nodePlacementStrategy: LINEAR_SEGMENTS
-
-
 ---
 
 flowchart
@@ -51,7 +49,7 @@ HWVALVE@{shape: ,label: "12V solenoid valve"}
         A0 -->|analog| MCU
         HWRTC -->|I2C|I2C
         HWSD -->|I2C| I2C
-        LG8 -..-> HWSD 
+        
         MCU -->|control| HWRELAY
         HWRELAY -->|switch 12V| HWVALVE
         I2C --> MCU
@@ -68,7 +66,6 @@ LGQ2@{shape: diam ,label: "Timeout"}
 LGX@{shape:  ,label: "Close valve TIMEOUT"}
 LG5@{shape:  ,label: "Close valve OK"}
 LG6@{shape:  ,label: "Compute volume"}
-LG7@{shape:  ,label: "Sample pH"}
 LG8@{shape:  ,label: "Write CSV to SD"}
     subgraph Algorithm
         Strat --> LG1
@@ -77,12 +74,17 @@ LG8@{shape:  ,label: "Write CSV to SD"}
         LG3 --> LG4
         LG4 --> LGQ1
         LGQ1 -- No --> LGQ2
-        LGQ2 -- No --> LG4 
+        LGQ2 -- No --> LGQ1 
         LGQ2 -- Yes --> LGX
         LGQ1-- Yes --> LG5
         LG5 --> LG6
         LGX --> LG6
-        LG6 --> LG7
-        LG7 --> LG8
+    
+        LG6 --> LG8
+        LG8 -..-> HWSD 
 
     end
+classDef big font-size:30px;
+    LG7@{shape: curv-trap ,label: "Life_Control pH"}
+    class LG7 big;
+    LG7 --> MCU
