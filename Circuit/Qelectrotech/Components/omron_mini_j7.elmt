@@ -1,0 +1,80 @@
+<definition width="480" version="0.90" link_type="simple" type="element" hotspot_y="44" height="90" hotspot_x="239">
+    <uuid uuid="{662a6b3c-ec9a-4a1b-a7bf-afe50b15604d}"/>
+    <names>
+        <name lang="ru">Omron_mini_J7</name>
+    </names>
+    <elementInformations/>
+    <informations></informations>
+    <description>
+        <text text="V" y="31.289" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-200.442" color="#000000"/>
+        <text text="W" y="31.2445" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-184.485" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="114.1"/>
+        <text text="L2" y="-25.6" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-192.6" color="#000000"/>
+        <text text="MB" y="-26.5" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="61.5" color="#000000"/>
+        <text text="U" y="30.8671" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-216.611" color="#000000"/>
+        <text text="L1" y="-25.5219" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-217.469" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="35.9555" x="-183.9"/>
+        <text text="PE" y="31.1835" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-168.157" color="#000000"/>
+        <text text="AM" y="-26.4281" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="191.569" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="36" x="-216.857"/>
+        <text text="PE" y="-25.6055" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="-168.615" color="#000000"/>
+        <text text="FR" y="-26.5656" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="132.166" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="36" x="-166.857"/>
+        <text text="FS" y="-26.4468" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="112.259" color="#000000"/>
+        <rect width="466.8" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y="-42.5" rx="0" x="-233.4" ry="0" height="85"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="36" x="-200.857"/>
+        <rect width="69.915" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y="22.5" rx="0" x="-225.4" ry="10" height="20"/>
+        <text text="FC" y="-26.4875" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="152.128" color="#000000"/>
+        <text text="S2" y="-25.711" rotation="0" font="Sans Serif,6,-1,5,50,0,0,0,0,0" x="-106.785" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-39.789" x="-216.815"/>
+        <text text="S1" y="-25.7329" rotation="0" font="Sans Serif,6,-1,5,50,0,0,0,0,0" x="-131.554" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-39.789" x="-166.815"/>
+        <text text="S4" y="-25.6946" rotation="0" font="Sans Serif,6,-1,5,50,0,0,0,0,0" x="-51.791" color="#000000"/>
+        <text text="S3" y="-25.8165" rotation="0" font="Sans Serif,6,-1,5,50,0,0,0,0,0" x="-81.5" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-39.789" x="-191.815"/>
+        <rect width="69.915" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y="-42.289" rx="0" x="-224.315" ry="10" height="20"/>
+        <text text="S5" y="-25.7055" rotation="0" font="Sans Serif,6,-1,5,50,0,0,0,0,0" x="-21.454" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="63.1"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="-19.9"/>
+        <text text="SC" y="-25.7" rotation="0" font="Sans Serif,6,-1,5,50,0,0,0,0,0" x="11.8" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="43.1"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="83.1"/>
+        <text text="MA" y="-26.5467" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="41.3937" color="#000000"/>
+        <text text="MC" y="-26.5249" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="80.8812" color="#000000"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="-49.9"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="194.1"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="154.1"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="-129.9"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="-79.9"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="134.1"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="214.1"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-40" x="-104.9"/>
+        <rect width="160" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y="-42.5" rx="0" x="-137.4" ry="10" height="20"/>
+        <rect width="57.95" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y="-42.5" rx="0" x="37.65" ry="0" height="20"/>
+        <rect width="120" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y="-42.5" rx="0" x="106.6" ry="0" height="20"/>
+        <circle antialias="false" style="line-style:normal;line-weight:normal;filling:black;color:black" diameter="5" y="-39.8945" x="14.045"/>
+        <text text="AC" y="-26.4375" rotation="0" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="211.85" color="#000000"/>
+        <text text="Omron mini_J7" y="17.5" rotation="0" font="Sans Serif,9,-1,5,50,0,0,0,0,0" x="-33.4" color="#000000"/>
+        <terminal name="W" y="38.4555" uuid="{7c91fc8a-3cf6-4d7b-932e-e2fbaba802c4}" type="Generic" x="-181.4" orientation="s"/>
+        <terminal name="S2" y="-37.5" uuid="{c2804684-dd7e-4e8d-acf8-81768626f71a}" type="Generic" x="-102.4" orientation="n"/>
+        <terminal name="S1" y="-37.5" uuid="{6c70552d-349d-4732-b8f7-480c783271e6}" type="Generic" x="-127.4" orientation="n"/>
+        <terminal name="FC" y="-37.5" uuid="{632a5786-62f5-4926-92e4-42e2c7b77b7c}" type="Generic" x="156.6" orientation="n"/>
+        <terminal name="MB" y="-37.5" uuid="{d57f4023-0fa7-4cbe-9b0a-9ed6b471f666}" type="Generic" x="65.6" orientation="n"/>
+        <terminal name="AM" y="-37.5" uuid="{523095c7-2236-474d-901e-52512d23491a}" type="Generic" x="196.6" orientation="n"/>
+        <terminal name="AC" y="-37.5" uuid="{fc35e38a-9c5b-4e1a-93b4-e22dc1eeee54}" type="Generic" x="216.6" orientation="n"/>
+        <terminal name="MA" y="-37.5" uuid="{875331bc-01fb-4243-a314-c75fe5a9c78c}" type="Generic" x="45.6" orientation="n"/>
+        <terminal name="S5" y="-37.5" uuid="{7a88c71b-8e3c-4a31-99d6-700b72309dc2}" type="Generic" x="-17.4" orientation="n"/>
+        <terminal name="FR" y="-37.5" uuid="{cc43a1bc-159b-47e7-b6b9-6899d89a737f}" type="Generic" x="136.6" orientation="n"/>
+        <terminal name="S4" y="-37.5" uuid="{78b95193-d043-4f00-aa88-c2f43ca8a50b}" type="Generic" x="-47.4" orientation="n"/>
+        <terminal name="S3" y="-37.5" uuid="{92fd8b6a-ba34-47c6-9a1c-e139d8bd9f22}" type="Generic" x="-77.4" orientation="n"/>
+        <terminal name="SC" y="-37.3945" uuid="{297ac964-6f09-45d3-b5d4-0c1c92c2e7b0}" type="Generic" x="16.545" orientation="n"/>
+        <terminal name="MC" y="-37.5" uuid="{a8b323cb-b6d2-4af8-87c3-d2859ad81639}" type="Generic" x="85.6" orientation="n"/>
+        <terminal name="FS" y="-37.5" uuid="{dc5e8d33-9687-4066-bcda-675177419ccd}" type="Generic" x="116.6" orientation="n"/>
+        <terminal name="PE" y="-37.289" uuid="{ec2f7f69-4bfc-41a1-b833-c319207cf532}" type="Generic" x="-164.315" orientation="n"/>
+        <terminal name="L2" y="-37.289" uuid="{477a40c9-e6f4-40e7-8888-c817546ce5c8}" type="Generic" x="-189.315" orientation="n"/>
+        <terminal name="L1" y="-37.289" uuid="{dec6903b-00d0-44aa-8d0a-26c22835e7da}" type="Generic" x="-214.315" orientation="n"/>
+        <terminal name="PE" y="38.5" uuid="{503f32e6-f82b-4e25-9472-bca7dfe7cdcc}" type="Generic" x="-164.357" orientation="s"/>
+        <terminal name="U" y="38.5" uuid="{dc8d7bc1-921f-4a6e-97f6-5c71a5b02aba}" type="Generic" x="-214.357" orientation="s"/>
+        <terminal name="V" y="38.5" uuid="{68fe5fba-fea2-47d9-893a-b83c6c4a6fa8}" type="Generic" x="-198.357" orientation="s"/>
+    </description>
+</definition>

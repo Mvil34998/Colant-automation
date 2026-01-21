@@ -1,0 +1,62 @@
+---
+config:
+  layout: elk
+  elk:
+    mergeEdges: true
+    nodePlacementStrategy: LINEAR_SEGMENTS
+
+
+---
+
+flowchart
+MCU@{shape: card ,label: "Arduino UNO\ncontroller"}
+HWMIN@{shape: event ,label: "MIN level sensor"}
+HWMAX@{shape: event ,label: "MAX level sensor"}
+HWSD@{shape: disk ,label: "SD card"}
+HWFLOW@{shape: ,label: "Flowmeter pulses"}
+HWPH@{shape: ,label: "pH sensor analog"}
+HWRTC@{shape: ,label: "RTC time"}
+I2C@{shape: ,label: "I2C HUB"}
+HWRELAY@{shape: ,label: "Relay module"}
+HWVALVE@{shape: ,label: "12V solenoid valve"}
+    subgraph Hardware
+        HWMIN -->|digital| MCU
+        HWMAX -->|digital| MCU
+        HWFLOW -->|interrupt| MCU
+        HWPH -->|analog| MCU
+        HWRTC -->|I2C|I2C
+        HWSD -->|I2C| I2C
+        LG8 -..-> HWSD 
+        MCU -->|control| HWRELAY
+        HWRELAY -->|switch 12V| HWVALVE
+        I2C --> MCU
+    end
+
+
+LG1@{shape: ,label: "MIN level sensor triggered"}
+LGQ1@{shape: diam ,label: "MAX level sensor triggered?"}
+LG2@{shape: ,label: "Read START_TS"}
+LG3@{shape: ,label: "Open valve"}
+LG4@{shape: ,label: "Count pulses"}
+LGQ2@{shape: diam ,label: "Timeout"}
+LGX@{shape:  ,label: "Close valve TIMEOUT"}
+LG5@{shape:  ,label: "Close valve OK"}
+LG6@{shape:  ,label: "Compute volume"}
+LG7@{shape:  ,label: "Sample pH"}
+LG8@{shape:  ,label: "Write CSV to SD"}
+    subgraph Algorithm
+        LG1 --> LG2
+        LG2 --> LG3
+        LG3 --> LG4
+        LG4 --> LGQ1
+        LGQ1 -- No --> LGQ2
+        LGQ2 -- No --> LG4 
+        LGQ2 -- Yes --> LGX
+        LGQ1-- Yes --> LG5
+        LG5 --> LG6
+        LGX --> LG6
+        LG6 --> LG7
+        LG7 --> LG8
+
+    end
+

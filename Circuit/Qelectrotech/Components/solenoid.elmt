@@ -1,0 +1,31 @@
+<definition type="element" hotspot_x="25" height="50" link_type="simple" version="0.90" width="70" hotspot_y="25">
+    <uuid uuid="{768beb80-1822-4422-b6e3-80b4c977f44f}"/>
+    <names>
+        <name lang="ar">صمّام كهربائي</name>
+        <name lang="en">Solenoid valve</name>
+        <name lang="fr">Electrovanne</name>
+        <name lang="nl">Elektrische afsluiter</name>
+        <name lang="it">Elettrovalvola</name>
+        <name lang="el">Ηλεκτροβαλβίδα</name>
+        <name lang="es">Electroválvula</name>
+        <name lang="pl">Elektrozawór</name>
+        <name lang="cs">Elektroventil</name>
+        <name lang="de">Magnetventil</name>
+    </names>
+    <elementInformations/>
+    <informations></informations>
+    <description>
+        <line end1="none" length1="1.5" length2="1.5" antialias="false" x1="0" end2="none" y1="20" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="-20" x2="0"/>
+        <rect y="-10" rx="0" antialias="false" ry="0" height="20" x="-20" style="line-style:normal;line-weight:normal;filling:white;color:black" width="40"/>
+        <dynamic_text y="-5.16667" text_from="ElementInfo" rotation="0" text_width="-1" z="3" x="-16" frame="false" Halignment="AlignLeft" uuid="{012a4f20-7aa5-4076-b8f8-3de4c9446245}" keep_visual_rotation="false" font="Sans Serif,5,-1,5,50,0,0,0,0,0" Valignment="AlignTop">
+            <text></text>
+            <info_name>label</info_name>
+        </dynamic_text>
+        <line end1="none" length1="1.5" length2="1.5" antialias="false" x1="23" end2="none" y1="0" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="0" x2="32"/>
+        <line end1="none" length1="1.5" length2="1.5" antialias="false" x1="-10" end2="none" y1="-9.5" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="9.5" x2="10"/>
+        <polygon antialias="false" x1="35" y1="0" y3="10" x3="40" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="10" x2="30"/>
+        <polygon antialias="false" x1="30" y1="-10" y3="-10" x3="40" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="0" x2="35"/>
+        <terminal y="15" type="Generic" x="11" orientation="s" uuid="{73291e07-f385-4632-8637-0c5eca70f275}" name="A2"/>
+        <terminal y="15" type="Generic" x="-10" orientation="s" uuid="{56c0388a-7c22-43db-8299-ee17ad234593}" name="A1"/>
+    </description>
+</definition>

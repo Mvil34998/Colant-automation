@@ -1,0 +1,60 @@
+<definition hotspot_x="24" width="80" hotspot_y="46" version="0.90" type="element" link_type="simple" height="90">
+    <uuid uuid="{ff8b3e49-86ca-4af7-9e11-32a8117bbcd1}"/>
+    <names>
+        <name lang="en">5V_voltage_divider</name>
+        <name lang="et">New element name</name>
+    </names>
+    <elementInformations>
+        <elementInformation name="description" show="1"></elementInformation>
+        <elementInformation name="machine_manufacturer_reference" show="1"></elementInformation>
+        <elementInformation name="designation" show="1"></elementInformation>
+        <elementInformation name="label" show="1"></elementInformation>
+        <elementInformation name="supplier" show="1"></elementInformation>
+        <elementInformation name="unity" show="1"></elementInformation>
+        <elementInformation name="manufacturer_reference" show="1"></elementInformation>
+        <elementInformation name="quantity" show="1"></elementInformation>
+        <elementInformation name="manufacturer" show="1"></elementInformation>
+        <elementInformation name="plant" show="1"></elementInformation>
+        <elementInformation name="comment" show="1"></elementInformation>
+    </elementInformations>
+    <informations>Created using dxf2elmt!</informations>
+    <description>
+        <line y1="0" x1="5.00503" end2="none" end1="none" x2="5.00503" length1="1.5" length2="1.5" y2="-40" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <circle y="30" diameter="2" x="-21" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="30" diameter="2" x="19" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="30" diameter="2" x="49" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="30" diameter="2" x="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="-41" diameter="2" x="19" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="-5" diameter="2" x="19" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="-5" diameter="2" x="49" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <polygon y1="13" y3="11" x3="-2" x1="-2" x2="-4" y2="12" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="true"/>
+        <line y1="31" x1="20" end2="none" end1="none" x2="20" length1="1.5" length2="1.5" y2="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <line y1="-0.0244559" x1="20.0011" end2="none" end1="none" x2="20.0011" length1="1.5" length2="1.5" y2="-40.0245" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <line y1="12" x1="-2" end2="none" end1="none" x2="-0.25" length1="1.5" length2="1.5" y2="12" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <rect y="-30" width="8" x="0.95" rx="0" ry="0" height="20" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+        <rect y="-30" width="8" x="16.05" rx="0" ry="0" height="20" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+        <rect y="1" width="8" x="16" rx="0" ry="0" height="20" style="line-style:normal;line-weight:normal;filling:white;color:black" antialias="false"/>
+        <polygon y1="8.5" y3="9.5" x3="-2" x1="-4" x2="-2" y2="7.5" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="true"/>
+        <line y1="8.5" x1="-2" end2="none" end1="none" x2="-0.25" length1="1.5" length2="1.5" y2="8.5" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <line y1="16" x1="0" end2="none" end1="none" x2="10" length1="1.5" length2="1.5" y2="16" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <polygon y1="6" y3="16" x3="5" x1="0" x2="10" y2="6" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="true"/>
+        <line y1="-9" x1="5" end2="none" end1="none" x2="5" length1="1.5" length2="1.5" y2="31" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <text text="30K" rotation="270" color="#000000" y="-14.2006" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="22.6383"/>
+        <text text="7K5" rotation="270" color="#000000" y="16.9385" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="22.5789"/>
+        <line y1="-40" x1="20" end2="none" end1="none" x2="-20" length1="1.5" length2="1.5" y2="-40" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <line y1="31" x1="20" end2="none" end1="none" x2="-20" length1="1.5" length2="1.5" y2="31" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <line y1="-4" x1="20" end2="none" end1="none" x2="50" length1="1.5" length2="1.5" y2="-4" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <line y1="31" x1="20" end2="none" end1="none" x2="50" length1="1.5" length2="1.5" y2="31" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false"/>
+        <text text="12V" rotation="0" color="#000000" y="-34.2141" font="Sans Serif,4,-1,5,50,0,0,0,0,0" x="-20"/>
+        <text text="GRD" rotation="0" color="#000000" y="36.2104" font="Sans Serif,4,-1,5,50,0,0,0,0,0" x="-18.6882"/>
+        <text text="GRD" rotation="0" color="#000000" y="36.4576" font="Sans Serif,4,-1,5,50,0,0,0,0,0" x="37.1292"/>
+        <text text="5V" rotation="0" color="#000000" y="1.89482" font="Sans Serif,4,-1,5,50,0,0,0,0,0" x="38.1495"/>
+        <circle y="-41" diameter="2" x="4" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <circle y="-41" diameter="2" x="-21" style="line-style:normal;line-weight:thin;filling:black;color:black" antialias="false"/>
+        <text text="4K7" rotation="270" color="#000000" y="-15" font="Sans Serif,5,-1,5,50,0,0,0,0,0" x="7"/>
+        <terminal orientation="e" uuid="{705417f8-9001-4971-905d-162c4a834358}" name="" y="-4" type="Generic" x="50"/>
+        <terminal orientation="e" uuid="{da87bfd8-b3bd-4772-9696-8503939714c3}" name="" y="31" type="Generic" x="50"/>
+        <terminal orientation="w" uuid="{68a1fd5c-ec6b-41b8-8ad0-b4300adbdc62}" name="" y="-40" type="Generic" x="-20"/>
+        <terminal orientation="w" uuid="{9d3a0584-d241-4f26-9d18-861b2a36ea5f}" name="" y="31" type="Generic" x="-20"/>
+    </description>
+</definition>

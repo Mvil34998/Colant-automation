@@ -1,0 +1,24 @@
+<definition type="element" hotspot_x="15" height="40" link_type="simple" version="0.90" width="40" hotspot_y="15">
+    <uuid uuid="{5159e29c-9d90-4d8e-b1fc-0bbac76f057d}"/>
+    <names>
+        <name lang="et">XLR-mini_Female</name>
+    </names>
+    <elementInformations/>
+    <informations></informations>
+    <description>
+        <circle y="-10" antialias="false" diameter="30" x="-10" style="line-style:normal;line-weight:normal;filling:gray;color:black"/>
+        <circle y="-9.25" antialias="false" diameter="28.5" x="-9.25" style="line-style:normal;line-weight:thin;filling:none;color:black"/>
+        <circle y="-5.5" antialias="false" diameter="3" x="-4" style="line-style:normal;line-weight:normal;filling:red;color:black"/>
+        <circle y="-8.5" antialias="false" diameter="3" x="3.5" style="line-style:normal;line-weight:normal;filling:yellow;color:black"/>
+        <circle y="-5.5" antialias="false" diameter="3" x="11" style="line-style:normal;line-weight:normal;filling:blue;color:black"/>
+        <circle y="12.5" antialias="false" diameter="3" x="-4" style="line-style:normal;line-weight:normal;filling:red;color:black"/>
+        <circle y="15.5" antialias="false" diameter="3" x="3.5" style="line-style:normal;line-weight:normal;filling:yellow;color:black"/>
+        <circle y="12.5" antialias="false" diameter="3" x="11" style="line-style:normal;line-weight:normal;filling:blue;color:black"/>
+        <terminal y="14" type="Generic" x="12.5" orientation="s" uuid="{c4b76c13-0e82-4f16-bfb0-c7e0b457bfd8}" name="in_V-"/>
+        <terminal y="17" type="Generic" x="5" orientation="s" uuid="{2ac1cca0-71f1-4eb0-a479-094e323543df}" name="Signal"/>
+        <terminal y="-7" type="Generic" x="5" orientation="n" uuid="{22568a35-7acb-4627-8a8b-f6e981d3f9b3}" name="Signal"/>
+        <terminal y="-4" type="Generic" x="12.5" orientation="n" uuid="{428eed51-456c-49e1-85fa-ea89b1a6d5c0}" name="OUT_V-"/>
+        <terminal y="-4" type="Generic" x="-2.5" orientation="n" uuid="{e106a274-3901-4484-93cf-a431c7dd5b89}" name="OUT_V+"/>
+        <terminal y="14" type="Generic" x="-2.5" orientation="s" uuid="{2f0f0057-0d35-49e2-920a-c2b966a9b748}" name="in_V+"/>
+    </description>
+</definition>

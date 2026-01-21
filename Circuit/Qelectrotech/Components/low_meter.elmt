@@ -1,0 +1,37 @@
+<definition type="element" hotspot_x="26" height="40" link_type="simple" version="0.90" width="40" hotspot_y="16">
+    <uuid uuid="{145854dc-f7fa-4e9c-8505-15d1f4836225}"/>
+    <names>
+        <name lang="ar">مقياس تدفق بالنبضات</name>
+        <name lang="en">Flowmeter pulse</name>
+        <name lang="fr">Débitmètre à impulsions</name>
+        <name lang="nl">Debietmeter puls</name>
+        <name lang="it">Flussimetro a impulsi</name>
+        <name lang="pl">Przepływomierz impulsowy</name>
+        <name lang="es">Medidor de flujo de pulsos</name>
+        <name lang="cs">Průtokoměr impulzní</name>
+        <name lang="de">Durchflusszähler</name>
+    </names>
+    <elementInformations/>
+    <informations>Author: The QElectroTech team
+License: see http://qelectrotech.org/wiki/doc/elements_license</informations>
+    <description>
+        <circle y="-10" antialias="true" diameter="20" x="-10" style="line-style:normal;line-weight:normal;filling:none;color:black"/>
+        <text y="14" rotation="0" color="#000000" x="-10" text="13" font="Sans Serif,4,-1,5,50,0,0,0,0,0"/>
+        <text y="15" rotation="0" color="#000000" x="5" text="14" font="Sans Serif,4,-1,5,50,0,0,0,0,0"/>
+        <dynamic_text y="-20.5" text_from="ElementInfo" rotation="0" text_width="-1" z="4" x="11" frame="false" Halignment="AlignLeft" uuid="{fb78d133-fe00-444d-8968-e26b21d1386c}" keep_visual_rotation="false" font="Sans Serif,8,-1,5,50,0,0,0,0,0" Valignment="AlignTop">
+            <text></text>
+            <info_name>label</info_name>
+        </dynamic_text>
+        <dynamic_text y="2.8333" text_from="UserText" rotation="0" text_width="-1" z="5" x="10" frame="false" Halignment="AlignLeft" uuid="{385fd4ca-efba-4bfd-9c15-99cd05d205a0}" keep_visual_rotation="false" font="Sans Serif,4,-1,5,25,0,0,0,0,0" Valignment="AlignTop">
+            <text>__ imp/l</text>
+        </dynamic_text>
+        <line end1="none" length1="1.5" length2="1.5" antialias="false" x1="-13" end2="none" y1="-2" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="2" x2="-13"/>
+        <text y="2.5" rotation="0" color="#000000" x="-23" text="Q" font="Sans Serif,8,-1,5,50,0,0,0,0,0"/>
+        <line end1="none" length1="1.5" length2="1.5" antialias="false" x1="-13" end2="none" y1="0" style="line-style:dashed;line-weight:normal;filling:none;color:black" y2="0" x2="-2"/>
+        <line end1="none" length1="1.5" length2="1.5" antialias="true" x1="-3" end2="none" y1="-6" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="6" x2="0"/>
+        <line end1="none" length1="1.5" length2="1.5" antialias="false" x1="0" end2="none" y1="6" style="line-style:normal;line-weight:normal;filling:none;color:black" y2="15" x2="0"/>
+        <terminal y="14" type="Generic" x="-3" orientation="s" uuid="{ff946220-a028-43a9-b101-e02deaec8c3c}" name=""/>
+        <terminal y="14" type="Generic" x="4" orientation="s" uuid="{d582f3a3-50a6-464d-a433-63bd799786fb}" name=""/>
+        <terminal y="0" type="Inner" x="-13" orientation="w" uuid="{087f4e90-ee8d-43f3-a06c-495a20fa35e3}" name=""/>
+    </description>
+</definition>
