@@ -10,6 +10,26 @@ config:
 ---
 
 flowchart
+%%Analog in
+    A0[[A0]]
+    %%A1[[A1]]
+    %%A2[[A2]]
+    %%A3[[A3]]
+    %%A4[[A4]]
+    %%A5[[A5]]
+%%Digital in
+    %%D1((D1))
+    %%D2((D2))
+    D3((D3))
+    D4((D4))
+    D5((D5))
+    %%D6((D6))
+    %%D7((D7))
+    %%D8((D8))
+    %%D9((D9))
+    %%D10((D10))
+    %%D11((D11))
+    %%D12((D12))
 MCU@{shape: card ,label: "Arduino UNO\ncontroller"}
 HWMIN@{shape: event ,label: "MIN level sensor"}
 HWMAX@{shape: event ,label: "MAX level sensor"}
@@ -21,10 +41,14 @@ I2C@{shape: ,label: "I2C HUB"}
 HWRELAY@{shape: ,label: "Relay module"}
 HWVALVE@{shape: ,label: "12V solenoid valve"}
     subgraph Hardware
-        HWMIN -->|digital| MCU
-        HWMAX -->|digital| MCU
-        HWFLOW -->|interrupt| MCU
-        HWPH -->|analog| MCU
+        HWMIN -->|digital| D3
+        D3-->|digital| MCU
+        HWMAX -->|digital| D4
+        D4 -->|digital| MCU
+        HWFLOW -->|interrupt| D5
+        D5 -->|interrupt| MCU
+        HWPH -->|analog| A0
+        A0 -->|analog| MCU
         HWRTC -->|I2C|I2C
         HWSD -->|I2C| I2C
         LG8 -..-> HWSD 
@@ -33,8 +57,9 @@ HWVALVE@{shape: ,label: "12V solenoid valve"}
         I2C --> MCU
     end
 
-
+Strat((Start))
 LG1@{shape: ,label: "MIN level sensor triggered"}
+style Strat fill:#0f0,stroke:#050,stroke-width:4px
 LGQ1@{shape: diam ,label: "MAX level sensor triggered?"}
 LG2@{shape: ,label: "Read START_TS"}
 LG3@{shape: ,label: "Open valve"}
@@ -46,6 +71,7 @@ LG6@{shape:  ,label: "Compute volume"}
 LG7@{shape:  ,label: "Sample pH"}
 LG8@{shape:  ,label: "Write CSV to SD"}
     subgraph Algorithm
+        Strat --> LG1
         LG1 --> LG2
         LG2 --> LG3
         LG3 --> LG4
@@ -60,4 +86,3 @@ LG8@{shape:  ,label: "Write CSV to SD"}
         LG7 --> LG8
 
     end
-
