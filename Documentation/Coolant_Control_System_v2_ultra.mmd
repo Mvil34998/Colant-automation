@@ -40,7 +40,7 @@ HWRTC@{shape: ,label: "RTC time"}
 I2C@{shape: ,label: "I2C HUB"}
 HWRELAY@{shape: ,label: "Relay module"}
 HWVALVE@{shape: ,label: "12V solenoid valve"}
-    subgraph Hardware
+subgraph Hardware
         HWMIN -->|digital| D3
         D3-->|digital| MCU
         HWMAX -->|digital| D4
@@ -72,7 +72,7 @@ LGX@{shape:  ,label: "Close valve TIMEOUT"}
 LG5@{shape:  ,label: "Close valve OK"}
 LG6@{shape:  ,label: "Compute volume"}
 LG8@{shape:  ,label: "Write CSV to SD"}
-    subgraph Algorithm
+subgraph Algorithm
         Strat --> LG1
         LG1 --> LG2
         LG2 --> LG3
@@ -90,6 +90,6 @@ LG8@{shape:  ,label: "Write CSV to SD"}
 
     end
 classDef big font-size:30px;
-    LG7@{shape: curv-trap ,label: "Life_Control pH"}
+LG7@{shape: curv-trap ,label: "Life_Control pH"}
     class LG7 big;
     LG7 --> MCU
