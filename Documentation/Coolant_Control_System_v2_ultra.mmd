@@ -76,15 +76,15 @@ subgraph Algorithm
         Strat --> LG1
         LG1 --> LG2
         LG2 --> LG3
+        LG3 --> LGQ1
         LG3 --> LG4
-        LG4 --> LGQ1
         LGQ1 -- No --> LGQ2
         LGQ2 -- No --> LGQ1 
         LGQ2 -- Yes --> LGX
         LGQ1-- Yes --> LG5
         LG5 --> LG6
         LGX --> LG6
-    
+        LG4 --> LG6
         LG6 --> LG8
         LG8 -..-> HWSD 
 
