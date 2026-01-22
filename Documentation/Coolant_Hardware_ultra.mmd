@@ -1,5 +1,5 @@
 ---
-title: Harware and Algorithm Flowchart
+title: Hardware Flowchart
 config:
   layout: elk
   elk:
@@ -59,37 +59,7 @@ subgraph Hardware
         SDA --> MCU
         SCL --> MCU
     end
-
-Strat((Start))
-LG1@{shape: ,label: "MIN level sensor triggered"}
-style Strat fill:#0f0,stroke:#050,stroke-width:4px
-LGQ1@{shape: diam ,label: "MAX level sensor triggered?"}
-LG2@{shape: ,label: "Read START_TS"}
-LG3@{shape: ,label: "Open valve"}
-LG4@{shape: ,label: "Count pulses"}
-LGQ2@{shape: diam ,label: "Timeout"}
-LGX@{shape:  ,label: "Close valve TIMEOUT"}
-LG5@{shape:  ,label: "Close valve OK"}
-LG6@{shape:  ,label: "Compute volume"}
-LG8@{shape:  ,label: "Write CSV to SD"}
-subgraph Algorithm
-        Strat --> LG1
-        LG1 --> LG2
-        LG2 --> LG3
-        LG3 --> LGQ1
-        LG3 --> LG4
-        LGQ1 -- No --> LGQ2
-        LGQ2 -- No --> LGQ1 
-        LGQ2 -- Yes --> LGX
-        LGQ1-- Yes --> LG5
-        LG5 --> LG6
-        LGX --> LG6
-        LG4 --> LG6
-        LG6 --> LG8
-        LG8 -..-> HWSD 
-
-    end
 classDef big font-size:30px;
-LG7@{shape: curv-trap ,label: "Life_Control pH"}
+LG7@{shape: curv-trap ,label: "Life_Control pH"} 
     class LG7 big;
     LG7 --> MCU

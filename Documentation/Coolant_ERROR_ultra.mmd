@@ -1,0 +1,5 @@
+flowchart TD
+E1[Enter ERROR] --> E2[Set valve CLOSED]
+E2 --> E3[Write alarm record to SD if possible]
+E3 --> E4[Wait manual reset]
+E4 --> E5[Go to IDLE]

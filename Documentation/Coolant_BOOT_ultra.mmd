@@ -1,0 +1,11 @@
+flowchart TD
+B1[Power on] --> B2[Set valve CLOSED]
+B2 --> B3[Init IO pins]
+B3 --> B4[Init interrupts for flow pulses]
+B4 --> B5[Init I2C]
+B5 --> B6[Init RTC]
+B6 --> B7[Init SPI]
+B7 --> B8[Init SD]
+B8 --> B9{Init OK}
+B9 -- Yes --> B10[Go to IDLE]
+B9 -- No --> B11[Go to ERROR]

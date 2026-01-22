@@ -1,0 +1,10 @@
+flowchart TD
+BOOT[BOOT] -->|init OK| IDLE[IDLE]
+BOOT -->|init FAIL| ERROR[ERROR]
+
+IDLE -->|MIN stable| FILLING[FILLING]
+FILLING -->|MAX stable| IDLE
+FILLING -->|timeout| ERROR
+
+ERROR -->|manual reset| IDLE
+ERROR -->|power cycle| BOOT
