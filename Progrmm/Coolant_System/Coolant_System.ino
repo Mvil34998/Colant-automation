@@ -7,6 +7,10 @@
 #include <Wire.h>
 // #include <RTClib.h> // Add when RTC library is available
 
+#ifndef IRAM_ATTR
+#define IRAM_ATTR
+#endif
+
 // Pin map (Arduino UNO form-factor per AGENTS diagrams)
 static const uint8_t PIN_LEVEL_MIN = 3;    // MIN level sensor (digital)
 static const uint8_t PIN_LEVEL_MAX = 2;    // MAX level sensor (digital)
@@ -16,13 +20,16 @@ static const uint8_t PIN_SD_CS = 10;       // SD chip select (DFR0229 is SPI)
 static const uint8_t PIN_VALVE_RELAY = 4;  // Relay control for valve
 
 // Constants
-const unsigned long PULSES_PER_LITER = 150; // From Liquid Flow Sensor G1/2 wiki
-const unsigned long MAX_FILL_TIME_MS = 0;   // NEED_USER_INPUT: define timeout
-const unsigned long MIN_STABLE_MS = 0;      // NEED_USER_INPUT: debounce MIN
-const unsigned long MAX_STABLE_MS = 0;      // NEED_USER_INPUT: debounce MAX
+const unsigned long PULSES_PER_LITER = 150;  // From Liquid Flow Sensor G1/2 wiki
+const unsigned long MAX_FILL_TIME_MS = 0;    // NEED_USER_INPUT: define timeout
+const unsigned long MIN_STABLE_MS = 0;       // NEED_USER_INPUT: debounce MIN
+const unsigned long MAX_STABLE_MS = 0;       // NEED_USER_INPUT: debounce MAX
 
 // Status/state
-enum SystemState { BOOT, IDLE, FILLING, ERROR };
+enum SystemState { BOOT,
+                   IDLE,
+                   FILLING,
+                   ERROR };
 volatile unsigned long pulseCount = 0;
 SystemState state = BOOT;
 
@@ -36,7 +43,7 @@ void IRAM_ATTR onFlowPulse() {
 
 // Helpers
 void closeValve() {
-  digitalWrite(PIN_VALVE_RELAY, LOW); // assumes LOW = valve closed via relay
+  digitalWrite(PIN_VALVE_RELAY, LOW);  // assumes LOW = valve closed via relay
 }
 
 void openValve() {
@@ -83,11 +90,16 @@ bool logFillCycle(const String &startTs, const String &stopTs, unsigned long pul
     return false;
   }
   const float volumeLiters = (float)pulses / (float)PULSES_PER_LITER;
-  file.print(startTs); file.print(',');
-  file.print(stopTs); file.print(',');
-  file.print(pulses); file.print(',');
-  file.print(volumeLiters, 3); file.print(',');
-  file.print(ph, 2); file.print(',');
+  file.print(startTs);
+  file.print(',');
+  file.print(stopTs);
+  file.print(',');
+  file.print(pulses);
+  file.print(',');
+  file.print(volumeLiters, 3);
+  file.print(',');
+  file.print(ph, 2);
+  file.print(',');
   file.println(status);
   file.close();
   return true;
@@ -97,8 +109,8 @@ bool initSubsystems() {
   pinMode(PIN_VALVE_RELAY, OUTPUT);
   closeValve();
 
-  pinMode(PIN_LEVEL_MIN, INPUT_PULLUP); // NEED_USER_INPUT: adjust for sensor type
-  pinMode(PIN_LEVEL_MAX, INPUT_PULLUP); // NEED_USER_INPUT: adjust for sensor type
+  pinMode(PIN_LEVEL_MIN, INPUT_PULLUP);  // NEED_USER_INPUT: adjust for sensor type
+  pinMode(PIN_LEVEL_MAX, INPUT_PULLUP);  // NEED_USER_INPUT: adjust for sensor type
   pinMode(PIN_FLOW_PULSE, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(PIN_FLOW_PULSE), onFlowPulse, RISING);
@@ -158,7 +170,7 @@ void loop() {
       if (debounceLevel(levelMinActive, MIN_STABLE_MS)) {
         state = FILLING;
       }
-      delay(50); // simple polling interval
+      delay(50);  // simple polling interval
       break;
     case FILLING:
       if (handleFilling()) {

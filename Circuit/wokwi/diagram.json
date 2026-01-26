@@ -1,0 +1,159 @@
+﻿{
+  "version": 1,
+  "author": "Codex draft",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 30, "left": -190, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc1", "top": -220, "left": 202, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc2", "top": -220, "left": 308, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc3", "top": -230, "left": 394, "attrs": {} },
+    {
+      "type": "wokwi-vcc",
+      "id": "vcc4",
+      "top": -129.6,
+      "left": 476.16,
+      "rotate": 270,
+      "attrs": {}
+    },
+    { "type": "wokwi-vcc", "id": "vcc5", "top": 306, "left": -38, "rotate": 180, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd4", "top": -258, "left": 384, "rotate": 180, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd5", "top": -221, "left": 335, "rotate": 180, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd6", "top": -229, "left": 182, "rotate": 180, "attrs": {} },
+    {
+      "type": "wokwi-gnd",
+      "id": "gnd7",
+      "top": -133.5,
+      "left": 834.1,
+      "rotate": 270,
+      "attrs": {}
+    },
+    { "type": "wokwi-gnd", "id": "gnd8", "top": 346, "left": -29, "attrs": {} },
+    {
+      "type": "wokwi-relay-module",
+      "id": "Valve_Relay",
+      "top": -138,
+      "left": 329,
+      "rotate": 90,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pH_Sensor",
+      "top": -158.2,
+      "left": 507.8,
+      "attrs": { "travelLength": "50" }
+    },
+    { "type": "wokwi-ds1307", "id": "RTC", "top": -159, "left": 250, "rotate": 90, "attrs": {} },
+    {
+      "type": "wokwi-microsd-card",
+      "id": "Micro_SD_Card",
+      "top": -156,
+      "left": 161,
+      "rotate": 270,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "MIN_BTN",
+      "top": 336,
+      "left": 141,
+      "rotate": 270,
+      "attrs": { "color": "red", "xray": "1", "bounce": "1", "key": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "MAX_BTN",
+      "top": 335.4,
+      "left": 195,
+      "rotate": 90,
+      "attrs": { "color": "green", "xray": "1", "key": "2" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_min",
+      "top": 346,
+      "left": 58,
+      "attrs": { "text": "MIN_Sensor" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_max",
+      "top": 345.6,
+      "left": 259.2,
+      "attrs": { "text": "MAX_Sensor" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_ph",
+      "top": -153.6,
+      "left": 624,
+      "attrs": { "text": "pH_Sensor" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "VALVE_LED",
+      "top": 159.6,
+      "left": 416.6,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_valve",
+      "top": 134.4,
+      "left": 412.8,
+      "attrs": { "text": "Valve" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "Flow_Sensor",
+      "top": -23.8,
+      "left": 507.8,
+      "attrs": { "travelLength": "50" }
+    },
+    { "type": "wokwi-vcc", "id": "vcc6", "top": 4.8, "left": 476.16, "rotate": 270, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 0.9, "left": 843.7, "rotate": 270, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_ph1",
+      "top": -19.2,
+      "left": 614.4,
+      "attrs": { "text": "Flow_Sensor" }
+    }
+  ],
+  "connections": [
+    [ "Micro_SD_Card:VCC", "vcc1:VCC", "red", [] ],
+    [ "RTC:5V", "vcc2:VCC", "red", [] ],
+    [ "Valve_Relay:VCC", "vcc3:VCC", "red", [] ],
+    [ "pH_Sensor:VCC", "vcc4:VCC", "red", [] ],
+    [ "vcc5:VCC", "uno:5V", "red", [] ],
+    [ "gnd6:GND", "Micro_SD_Card:GND", "black", [] ],
+    [ "gnd5:GND", "RTC:GND", "black", [] ],
+    [ "gnd4:GND", "Valve_Relay:GND", "black", [] ],
+    [ "pH_Sensor:GND", "gnd7:GND", "black", [] ],
+    [ "gnd8:GND", "uno:GND.2", "black", [] ],
+    [ "pH_Sensor:SIG", "uno:A0", "blue", [ "h-48", "v412", "h-442.8" ] ],
+    [ "RTC:SDA", "uno:A4", "purple", [ "v-112.3", "h-181.7", "v531.8", "h-68.8" ] ],
+    [ "RTC:SCL", "uno:A5", "brown", [ "v-102.7", "h-153", "v528", "h-78.5" ] ],
+    [ "Micro_SD_Card:CS", "uno:10", "blue", [ "v-125.17", "h-266.91" ] ],
+    [ "Micro_SD_Card:MOSI", "uno:11", "orange", [] ],
+    [ "Micro_SD_Card:MISO", "uno:12", "yellow", [] ],
+    [ "Micro_SD_Card:SCK", "uno:13", "green", [ "v-96.37", "h-266.68" ] ],
+    [ "Valve_Relay:IN", "uno:4", "orange", [ "v-115", "h-356.1" ] ],
+    [ "VALVE_LED:C", "uno:GND.1", "black", [ "v28.8", "h-86.2", "v-403", "h-419.9" ] ],
+    [ "MIN_BTN:1", "uno:GND.2", "black", [] ],
+    [ "MIN_BTN:2", "uno:3", "green", [] ],
+    [ "MAX_BTN:1", "uno:GND.2", "black", [] ],
+    [ "MAX_BTN:2", "uno:2", "green", [] ],
+    [ "Valve_Relay:NO", "VALVE_LED:A", "gold", [ "v327.8", "h59.6" ] ],
+    [ "pH_Sensor1:VCC", "vcc6:VCC", "red", [ "h0" ] ],
+    [ "gnd1:GND", "pH_Sensor1:GND", "black", [ "v0" ] ],
+    [ "vcc6:VCC", "Flow_Sensor:VCC", "red", [ "v0" ] ],
+    [ "gnd1:GND", "Flow_Sensor:GND", "black", [ "v0" ] ],
+    [ "Flow_Sensor:SIG", "uno:5", "green", [ "h-288", "v-58.4", "h-202.8" ] ],
+    [ "MIN_BTN:2.r", "uno:3", "green", [ "v-336.6", "h-145" ] ],
+    [ "MAX_BTN:1.l", "uno:2", "green", [ "v-172.8", "h-38.4", "v-144", "h-155.1" ] ],
+    [ "MIN_BTN:1.l", "uno:GND.2", "black", [ "v47.6", "h-163", "v-163.2", "h-20.5" ] ],
+    [ "MAX_BTN:2.r", "MIN_BTN:1.l", "black", [ "v48.2", "h-96.2" ] ]
+  ],
+  "dependencies": {}
+}

@@ -1,0 +1,9 @@
+[wokwi]
+version = 1
+
+# Firmware artifacts placed next to this config (relative paths).
+firmware = "Coolant_System.ino.hex"
+elf = "Coolant_System.ino.elf"
+
+# Optional: expose serial over RFC2217 (uncomment to enable)
+# rfc2217ServerPort = 4000
