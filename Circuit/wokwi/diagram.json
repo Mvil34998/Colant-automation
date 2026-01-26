@@ -23,7 +23,14 @@
       "rotate": 180,
       "attrs": {}
     },
-    { "type": "wokwi-gnd", "id": "gnd4", "top": -258, "left": 384, "rotate": 180, "attrs": {} },
+    {
+      "type": "wokwi-gnd",
+      "id": "gnd4",
+      "top": -257.8,
+      "left": 383.8,
+      "rotate": 180,
+      "attrs": {}
+    },
     { "type": "wokwi-gnd", "id": "gnd5", "top": -221, "left": 335, "rotate": 180, "attrs": {} },
     { "type": "wokwi-gnd", "id": "gnd6", "top": -229, "left": 182, "rotate": 180, "attrs": {} },
     {
@@ -34,7 +41,6 @@
       "rotate": 270,
       "attrs": {}
     },
-    { "type": "wokwi-gnd", "id": "gnd8", "top": 345.6, "left": -29.4, "attrs": {} },
     {
       "type": "wokwi-relay-module",
       "id": "Valve_Relay",
@@ -129,13 +135,22 @@
     {
       "type": "wokwi-resistor",
       "id": "r1",
-      "top": 24,
-      "left": -394.15,
+      "top": -206.4,
+      "left": -259.75,
       "rotate": 90,
       "attrs": { "value": "10000" }
     },
-    { "type": "wokwi-gnd", "id": "gnd2", "top": 96, "left": -375, "attrs": {} },
-    { "type": "wokwi-vcc", "id": "vcc7", "top": -191.24, "left": -393.6, "attrs": {} }
+    { "type": "wokwi-gnd", "id": "gnd2", "top": -344.2, "left": -221, "rotate": 180, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd3", "top": -334.6, "left": -461, "rotate": 180, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -216,
+      "left": -490.15,
+      "rotate": 90,
+      "attrs": { "value": "10000" }
+    },
+    { "type": "wokwi-gnd", "id": "gnd8", "top": -28.8, "left": 383.4, "attrs": {} }
   ],
   "connections": [
     [ "Micro_SD_Card:VCC", "vcc1:VCC", "red", [] ],
@@ -147,7 +162,6 @@
     [ "gnd5:GND", "RTC:GND", "black", [] ],
     [ "gnd4:GND", "Valve_Relay:GND", "black", [] ],
     [ "pH_Sensor:GND", "gnd7:GND", "black", [] ],
-    [ "gnd8:GND", "uno:GND.2", "black", [] ],
     [ "pH_Sensor:SIG", "uno:A0", "blue", [ "h-48", "v412", "h-442.8" ] ],
     [ "RTC:SDA", "uno:A4", "purple", [ "v-112.3", "h-181.7", "v531.8", "h-68.8" ] ],
     [ "RTC:SCL", "uno:A5", "brown", [ "v-102.7", "h-153", "v528", "h-78.5" ] ],
@@ -167,13 +181,17 @@
     [ "vcc6:VCC", "Flow_Sensor:VCC", "red", [ "v0" ] ],
     [ "gnd1:GND", "Flow_Sensor:GND", "black", [ "v0" ] ],
     [ "Flow_Sensor:SIG", "uno:5", "green", [ "h-288", "v-58.4", "h-202.8" ] ],
-    [ "MIN_BTN:2.l", "uno:3", "gold", [ "h77", "v-57.6", "h230.4", "v115.8" ] ],
-    [ "r1:1", "MIN_BTN:2.l", "black", [ "h0" ] ],
-    [ "r1:2", "gnd2:GND", "green", [ "h0" ] ],
     [ "vcc7:VCC", "MIN_BTN:1.r", "red", [ "h96", "v115.4" ] ],
-    [ "MAX_BTN:1.r", "r1:1", "black", [ "v0" ] ],
     [ "vcc7:VCC", "MAX_BTN:2.l", "red", [ "h-96", "v67.2" ] ],
-    [ "MAX_BTN:1.r", "uno:2", "gold", [ "h38.4", "v-38.2", "h468.9" ] ]
+    [ "uno:5V", "MIN_BTN:1.l", "red", [ "v56.9", "h-258" ] ],
+    [ "MIN_BTN:1.r", "uno:3", "green", [ "v-48.2", "h325" ] ],
+    [ "r1:2", "MIN_BTN:2.r", "green", [ "h0" ] ],
+    [ "gnd2:GND", "r1:1", "black", [ "v0" ] ],
+    [ "uno:5V", "MAX_BTN:2.r", "red", [ "v76.1", "h-450", "v-365" ] ],
+    [ "MAX_BTN:2.l", "uno:2", "green", [ "v-38.4", "h47.8", "v182.4", "h478.5" ] ],
+    [ "MAX_BTN:1.l", "r2:2", "green", [ "v0" ] ],
+    [ "r2:1", "gnd3:GND", "green", [ "h0" ] ],
+    [ "Valve_Relay:COM", "gnd8:GND", "green", [ "v0" ] ]
   ],
   "dependencies": {}
 }
