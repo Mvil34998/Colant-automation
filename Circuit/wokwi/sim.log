@@ -1,0 +1,17 @@
+[BOOT] Coolant automation start
+[OK] SD.begin
+[BOOT] Init OK -> IDLE
+[ANALOG] ph_raw=512
+[FLOW] count=98
+[FLOW] count=107
+[FLOW] count=187
+[FLOW] count=277
+[FLOW] count=278
+[FLOW] count=327
+[FLOW] count=348
+[FLOW] count=419
+[FLOW] count=516
+[FLOW] count=548
+[ANALOG] ph_raw=512
+[ANALOG] ph_raw=512
+[FLOW] count=5

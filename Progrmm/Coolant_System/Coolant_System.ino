@@ -13,8 +13,8 @@
 
 // Pin map (Arduino UNO form-factor per AGENTS diagrams)
 static const uint8_t PIN_LEVEL_MIN = 3;    // MIN level sensor (digital)
-static const uint8_t PIN_LEVEL_MAX = 2;    // MAX level sensor (digital)
-static const uint8_t PIN_FLOW_PULSE = 5;   // Flowmeter pulses (interrupt-capable)
+static const uint8_t PIN_LEVEL_MAX = 6;    // MAX level sensor (digital)
+static const uint8_t PIN_FLOW_PULSE = 2;   // Flowmeter pulses (interrupt-capable INT0)
 static const uint8_t PIN_PH_ANALOG = A0;   // pH sensor analog output
 static const uint8_t PIN_SD_CS = 10;       // SD chip select (DFR0229 is SPI)
 static const uint8_t PIN_VALVE_RELAY = 4;  // Relay control for valve
@@ -22,8 +22,8 @@ static const uint8_t PIN_VALVE_RELAY = 4;  // Relay control for valve
 // Constants
 const unsigned long PULSES_PER_LITER = 150;  // From Liquid Flow Sensor G1/2 wiki
 const unsigned long MAX_FILL_TIME_MS = 0;    // NEED_USER_INPUT: define timeout
-const unsigned long MIN_STABLE_MS = 0;       // NEED_USER_INPUT: debounce MIN
-const unsigned long MAX_STABLE_MS = 0;       // NEED_USER_INPUT: debounce MAX
+const unsigned long MIN_STABLE_MS = 100;       // NEED_USER_INPUT: debounce MIN
+const unsigned long MAX_STABLE_MS = 300;       // NEED_USER_INPUT: debounce MAX
 
 // Status/state
 enum SystemState { BOOT,
@@ -32,6 +32,8 @@ enum SystemState { BOOT,
                    ERROR };
 volatile unsigned long pulseCount = 0;
 SystemState state = BOOT;
+unsigned long lastReportedPulseCount = 0;
+unsigned long lastFlowReportMs = 0;
 
 // Placeholders for RTC/time and pH thresholds
 // NEED_USER_INPUT: pH thresholds/policy; RTC library hookup.
@@ -56,11 +58,13 @@ String readTimestamp() {
 }
 
 bool levelMinActive() {
-  return digitalRead(PIN_LEVEL_MIN) == HIGH;
+  // Active LOW with INPUT_PULLUP wiring; NEED_USER_INPUT for real sensor polarity.
+  return digitalRead(PIN_LEVEL_MIN) == LOW;
 }
 
 bool levelMaxActive() {
-  return digitalRead(PIN_LEVEL_MAX) == HIGH;
+  // Active LOW with INPUT_PULLUP wiring; NEED_USER_INPUT for real sensor polarity.
+  return digitalRead(PIN_LEVEL_MAX) == LOW;
 }
 
 bool debounceLevel(bool (*levelFn)(), unsigned long stableMs) {
@@ -119,16 +123,21 @@ bool initSubsystems() {
   // TODO: init RTC when library available
 
   if (!SD.begin(PIN_SD_CS)) {
+    Serial.println(F("[ERR] SD.begin failed"));
     return false;
   }
+  Serial.println(F("[OK] SD.begin"));
   return true;
 }
 
 void setup() {
   Serial.begin(9600);
+  Serial.println(F("[BOOT] Coolant automation start"));
   if (initSubsystems()) {
+    Serial.println(F("[BOOT] Init OK -> IDLE"));
     state = IDLE;
   } else {
+    Serial.println(F("[BOOT] Init FAIL -> ERROR"));
     state = ERROR;
   }
 }
@@ -136,12 +145,14 @@ void setup() {
 bool handleFilling() {
   const String startTs = readTimestamp();
   pulseCount = 0;
+  Serial.println(F("[FILLING] Start, valve OPEN"));
   openValve();
   const unsigned long startMs = millis();
 
   while (true) {
     if (MAX_FILL_TIME_MS > 0 && millis() - startMs > MAX_FILL_TIME_MS) {
       closeValve();
+      Serial.println(F("[FILLING] TIMEOUT, valve CLOSED"));
       const String stopTs = readTimestamp();
       const float ph = samplePH();
       logFillCycle(startTs, stopTs, pulseCount, ph, "TIMEOUT");
@@ -149,6 +160,8 @@ bool handleFilling() {
     }
     if (debounceLevel(levelMaxActive, MAX_STABLE_MS)) {
       closeValve();
+      Serial.print(F("[FILLING] MAX reached, pulses="));
+      Serial.println(pulseCount);
       const String stopTs = readTimestamp();
       const float ph = samplePH();
       logFillCycle(startTs, stopTs, pulseCount, ph, "OK");
@@ -160,27 +173,48 @@ bool handleFilling() {
 }
 
 void loop() {
+  static unsigned long lastAnalogLogMs = 0;
+  const unsigned long now = millis();
+  if (now - lastAnalogLogMs >= 500) {
+    const int phRaw = analogRead(PIN_PH_ANALOG);
+    Serial.print(F("[ANALOG] ph_raw="));
+    Serial.println(phRaw);
+    lastAnalogLogMs = now;
+  }
+
+  if (pulseCount != lastReportedPulseCount || (now - lastFlowReportMs >= 1000)) {
+    Serial.print(F("[FLOW] count="));
+    Serial.println(pulseCount);
+    lastReportedPulseCount = pulseCount;
+    lastFlowReportMs = now;
+  }
+
   switch (state) {
     case BOOT:
       // Should not stay here; init happens in setup
+      Serial.println(F("[ERR] Unexpected BOOT state"));
       state = ERROR;
       break;
     case IDLE:
       closeValve();
       if (debounceLevel(levelMinActive, MIN_STABLE_MS)) {
+        Serial.println(F("[IDLE] MIN active -> FILLING"));
         state = FILLING;
       }
       delay(50);  // simple polling interval
       break;
     case FILLING:
       if (handleFilling()) {
+        Serial.println(F("[FILLING] Cycle OK -> IDLE"));
         state = IDLE;
       } else {
+        Serial.println(F("[FILLING] ERROR -> ERROR state"));
         state = ERROR;
       }
       break;
     case ERROR:
       closeValve();
+      Serial.println(F("[ERROR] Valve closed, waiting reset"));
       // Wait for manual reset (user can power-cycle or add button)
       delay(500);
       break;

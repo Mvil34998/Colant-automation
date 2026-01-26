@@ -1,0 +1,43 @@
+name: "Coolant automation: MIN->MAX relay toggle"
+version: 1
+author: "Codex"
+
+steps:
+  # Ensure MAX is released (inactive, pull-up = HIGH)
+  - set-control:
+      part-id: MAX_BTN
+      control: pressed
+      value: 0
+  - delay: 300ms
+  # Press MIN (active LOW) to start filling
+  - set-control:
+      part-id: MIN_BTN
+      control: pressed
+      value: 1
+  - delay: 800ms
+  # Release MIN
+  - set-control:
+      part-id: MIN_BTN
+      control: pressed
+      value: 0
+  - delay: 700ms
+  - expect-pin:
+      part-id: Valve_Relay
+      pin: IN
+      value: 1
+  # Press MAX (active LOW) to stop filling
+  - set-control:
+      part-id: MAX_BTN
+      control: pressed
+      value: 1
+  - delay: 800ms
+  # Release MAX
+  - set-control:
+      part-id: MAX_BTN
+      control: pressed
+      value: 0
+  - delay: 300ms
+  - expect-pin:
+      part-id: Valve_Relay
+      pin: IN
+      value: 0

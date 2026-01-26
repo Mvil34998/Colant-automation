@@ -1,0 +1,28 @@
+name: "Coolant automation: flow pulses via button"
+version: 1
+author: "Codex"
+
+steps:
+  - delay: 500ms
+  # Generate 5 pulses on D5: press (LOW), release (RISING)
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 1 }
+  - delay: 40ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 0 }
+  - delay: 60ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 1 }
+  - delay: 40ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 0 }
+  - delay: 60ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 1 }
+  - delay: 40ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 0 }
+  - delay: 60ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 1 }
+  - delay: 40ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 0 }
+  - delay: 60ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 1 }
+  - delay: 40ms
+  - set-control: { part-id: FLOW_BTN, control: pressed, value: 0 }
+  - delay: 500ms
+  - wait-serial: "[FLOW] count=5"
