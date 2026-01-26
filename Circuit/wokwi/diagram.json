@@ -15,7 +15,14 @@
       "rotate": 270,
       "attrs": {}
     },
-    { "type": "wokwi-vcc", "id": "vcc5", "top": 306, "left": -38, "rotate": 180, "attrs": {} },
+    {
+      "type": "wokwi-vcc",
+      "id": "vcc5",
+      "top": 306.24,
+      "left": -38.2,
+      "rotate": 180,
+      "attrs": {}
+    },
     { "type": "wokwi-gnd", "id": "gnd4", "top": -258, "left": 384, "rotate": 180, "attrs": {} },
     { "type": "wokwi-gnd", "id": "gnd5", "top": -221, "left": 335, "rotate": 180, "attrs": {} },
     { "type": "wokwi-gnd", "id": "gnd6", "top": -229, "left": 182, "rotate": 180, "attrs": {} },
@@ -27,7 +34,7 @@
       "rotate": 270,
       "attrs": {}
     },
-    { "type": "wokwi-gnd", "id": "gnd8", "top": 346, "left": -29, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd8", "top": 345.6, "left": -29.4, "attrs": {} },
     {
       "type": "wokwi-relay-module",
       "id": "Valve_Relay",
@@ -55,31 +62,31 @@
     {
       "type": "wokwi-pushbutton",
       "id": "MIN_BTN",
-      "top": 336,
-      "left": 141,
+      "top": -77.2,
+      "left": -310,
       "rotate": 270,
       "attrs": { "color": "red", "xray": "1", "bounce": "1", "key": "1" }
     },
     {
       "type": "wokwi-pushbutton",
       "id": "MAX_BTN",
-      "top": 335.4,
-      "left": 195,
+      "top": -125.4,
+      "left": -505.8,
       "rotate": 90,
       "attrs": { "color": "green", "xray": "1", "key": "2" }
     },
     {
       "type": "wokwi-text",
       "id": "lbl_min",
-      "top": 346,
-      "left": 58,
+      "top": -67.2,
+      "left": -403.2,
       "attrs": { "text": "MIN_Sensor" }
     },
     {
       "type": "wokwi-text",
       "id": "lbl_max",
-      "top": 345.6,
-      "left": 259.2,
+      "top": -115.2,
+      "left": -595.2,
       "attrs": { "text": "MAX_Sensor" }
     },
     {
@@ -118,7 +125,17 @@
       "top": -19.2,
       "left": 614.4,
       "attrs": { "text": "Flow_Sensor" }
-    }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 24,
+      "left": -394.15,
+      "rotate": 90,
+      "attrs": { "value": "10000" }
+    },
+    { "type": "wokwi-gnd", "id": "gnd2", "top": 96, "left": -375, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc7", "top": -191.24, "left": -393.6, "attrs": {} }
   ],
   "connections": [
     [ "Micro_SD_Card:VCC", "vcc1:VCC", "red", [] ],
@@ -150,10 +167,13 @@
     [ "vcc6:VCC", "Flow_Sensor:VCC", "red", [ "v0" ] ],
     [ "gnd1:GND", "Flow_Sensor:GND", "black", [ "v0" ] ],
     [ "Flow_Sensor:SIG", "uno:5", "green", [ "h-288", "v-58.4", "h-202.8" ] ],
-    [ "MIN_BTN:2.r", "uno:3", "green", [ "v-336.6", "h-145" ] ],
-    [ "MAX_BTN:1.l", "uno:2", "green", [ "v-172.8", "h-38.4", "v-144", "h-155.1" ] ],
-    [ "MIN_BTN:1.l", "uno:GND.2", "black", [ "v47.6", "h-163", "v-163.2", "h-20.5" ] ],
-    [ "MAX_BTN:2.r", "MIN_BTN:1.l", "black", [ "v48.2", "h-96.2" ] ]
+    [ "MIN_BTN:2.l", "uno:3", "gold", [ "h77", "v-57.6", "h230.4", "v115.8" ] ],
+    [ "r1:1", "MIN_BTN:2.l", "black", [ "h0" ] ],
+    [ "r1:2", "gnd2:GND", "green", [ "h0" ] ],
+    [ "vcc7:VCC", "MIN_BTN:1.r", "red", [ "h96", "v115.4" ] ],
+    [ "MAX_BTN:1.r", "r1:1", "black", [ "v0" ] ],
+    [ "vcc7:VCC", "MAX_BTN:2.l", "red", [ "h-96", "v67.2" ] ],
+    [ "MAX_BTN:1.r", "uno:2", "gold", [ "h38.4", "v-38.2", "h468.9" ] ]
   ],
   "dependencies": {}
 }
