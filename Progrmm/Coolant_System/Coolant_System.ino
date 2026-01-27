@@ -5,7 +5,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include <Wire.h>
-// #include <RTClib.h> // Add when RTC library is available
+#include "DFRobot_DS1307.h"
 
 #ifndef IRAM_ATTR
 #define IRAM_ATTR
@@ -21,9 +21,9 @@ static const uint8_t PIN_VALVE_RELAY = 4;  // Relay control for valve
 
 // Constants
 const unsigned long PULSES_PER_LITER = 150;  // From Liquid Flow Sensor G1/2 wiki
-const unsigned long MAX_FILL_TIME_MS = 0;    // NEED_USER_INPUT: define timeout
-const unsigned long MIN_STABLE_MS = 100;       // NEED_USER_INPUT: debounce MIN
-const unsigned long MAX_STABLE_MS = 300;       // NEED_USER_INPUT: debounce MAX
+const unsigned long MAX_FILL_TIME_MS = 5000;    // NEED_USER_INPUT: define timeout
+const unsigned long MIN_STABLE_MS = 100;     // NEED_USER_INPUT: debounce MIN
+const unsigned long MAX_STABLE_MS = 300;     // NEED_USER_INPUT: debounce MAX
 
 // Status/state
 enum SystemState { BOOT,
@@ -34,6 +34,8 @@ volatile unsigned long pulseCount = 0;
 SystemState state = BOOT;
 unsigned long lastReportedPulseCount = 0;
 unsigned long lastFlowReportMs = 0;
+bool rtcOk = false;
+DFRobot_DS1307 rtc(&Wire, DS1307_I2C_ADDR);
 
 // Placeholders for RTC/time and pH thresholds
 // NEED_USER_INPUT: pH thresholds/policy; RTC library hookup.
@@ -53,8 +55,20 @@ void openValve() {
 }
 
 String readTimestamp() {
-  // NEED_USER_INPUT: replace with RTC timestamp retrieval
-  return String("1970-01-01 00:00:00");
+  if (!rtcOk) {
+    return String("1970-01-01 00:00:00");
+  }
+  uint16_t t[7] = {0};
+  rtc.getTime(t);
+  char buf[24];
+  snprintf(buf, sizeof(buf), "%04u-%02u-%02u %02u:%02u:%02u",
+           t[DFRobot_DS1307::eYR],
+           t[DFRobot_DS1307::eMTH],
+           t[DFRobot_DS1307::eDATE],
+           t[DFRobot_DS1307::eHR],
+           t[DFRobot_DS1307::eMIN],
+           t[DFRobot_DS1307::eSEC]);
+  return String(buf);
 }
 
 bool levelMinActive() {
@@ -120,7 +134,12 @@ bool initSubsystems() {
   attachInterrupt(digitalPinToInterrupt(PIN_FLOW_PULSE), onFlowPulse, RISING);
 
   Wire.begin();  // RTC/I2C hub
-  // TODO: init RTC when library available
+  rtcOk = rtc.begin();
+  if (!rtcOk) {
+    Serial.println(F("[ERR] RTC begin failed"));
+    return false;
+  }
+  Serial.println(F("[OK] RTC.begin"));
 
   if (!SD.begin(PIN_SD_CS)) {
     Serial.println(F("[ERR] SD.begin failed"));

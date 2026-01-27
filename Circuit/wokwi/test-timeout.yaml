@@ -1,0 +1,16 @@
+name: "Coolant automation: timeout on filling"
+version: 1
+author: "Codex"
+
+steps:
+  - delay: 300ms
+  # Release MAX (inactive)
+  - set-control: { part-id: MAX_BTN, control: pressed, value: 0 }
+  # Press MIN to start filling
+  - set-control: { part-id: MIN_BTN, control: pressed, value: 1 }
+  - delay: 200ms
+  - set-control: { part-id: MIN_BTN, control: pressed, value: 0 }
+  # Wait longer than MAX_FILL_TIME_MS (now 5000 ms)
+  - delay: 6000ms
+  # Expect valve closed (IN low) after timeout
+  - expect-pin: { part-id: Valve_Relay, pin: IN, value: 0 }
