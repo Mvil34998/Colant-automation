@@ -13,15 +13,15 @@
 
 // Pin map (Arduino UNO form-factor per AGENTS diagrams)
 static const uint8_t PIN_LEVEL_MIN = 3;    // MIN level sensor (digital)
-static const uint8_t PIN_LEVEL_MAX = 6;    // MAX level sensor (digital)
-static const uint8_t PIN_FLOW_PULSE = 2;   // Flowmeter pulses (interrupt-capable INT0)
+static const uint8_t PIN_LEVEL_MAX = 2;    // MAX level sensor (digital)
+static const uint8_t PIN_FLOW_PULSE = 5;   // Flowmeter pulses (interrupt-capable INT0)
 static const uint8_t PIN_PH_ANALOG = A0;   // pH sensor analog output
 static const uint8_t PIN_SD_CS = 10;       // SD chip select (DFR0229 is SPI)
 static const uint8_t PIN_VALVE_RELAY = 4;  // Relay control for valve
 
 // Constants
 const unsigned long PULSES_PER_LITER = 150;  // From Liquid Flow Sensor G1/2 wiki
-const unsigned long MAX_FILL_TIME_MS = 5000;    // NEED_USER_INPUT: define timeout
+const unsigned long MAX_FILL_TIME_MS = 50000;    // NEED_USER_INPUT: define timeout
 const unsigned long MIN_STABLE_MS = 100;     // NEED_USER_INPUT: debounce MIN
 const unsigned long MAX_STABLE_MS = 300;     // NEED_USER_INPUT: debounce MAX
 
