@@ -299,6 +299,10 @@ bool initSubsystems() {
   pinMode(PIN_STATUS_LED, OUTPUT);
   digitalWrite(PIN_STATUS_LED, LOW);
 
+  // Per SD library requirement on AVR: keep hardware SS (D10 on UNO) as OUTPUT,
+  // even if a different pin is used as SD CS. (Matches Arduino SD examples / SD_card.ino template.)
+  pinMode(10, OUTPUT);
+
   pinMode(PIN_LEVEL_MIN, INPUT_PULLUP);  // NEED_USER_INPUT: adjust for sensor type
   pinMode(PIN_LEVEL_MAX, INPUT_PULLUP);  // NEED_USER_INPUT: adjust for sensor type
   pinMode(PIN_FLOW_PULSE, INPUT_PULLUP);

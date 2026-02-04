@@ -19,15 +19,16 @@ flowchart
     %%D1((D1))
     D2((D2))
     D3((D3))
-    %%D4((D4))
+    D4((D4))
     D5((D5))
     %%D6((D6))
     %%D7((D7))
     %%D8((D8))
     %%D9((D9))
-    %%D10((D10))
-    %%D11((D11))
-    %%D12((D12))
+    D10((D10))
+    D11((D11))
+    D12((D12))
+    D13((D13))
     SDA[SDA]
     SCL[SCL]
 MCU@{shape: card ,label: "Arduino UNO\ncontroller"}
@@ -50,16 +51,21 @@ subgraph Hardware
         HWPH -->|analog| A0
         A0 -->|analog| MCU
         HWRTC -->|I2C|I2C
-        HWSD -->|I2C| I2C
+        HWSD -->|SPI Chip Select| D10
+        HWSD -->|SPI MOSI| D11
+        HWSD -->|SPI MISO| D12
+        HWSD -->|SPI SCK| D13
+        D10 -->|SPI| MCU
+        D11 -->|SPI| MCU
+        D12 -->|SPI| MCU
+        D13 -->|SPI| MCU
         
-        MCU -->|control| HWRELAY
+        MCU -->D4
+        D4 -->|control|HWRELAY
         HWRELAY -->|switch 12V| HWVALVE
         I2C --> SDA
         I2C --> SCL
         SDA --> MCU
         SCL --> MCU
     end
-classDef big font-size:30px;
-LG7@{shape: curv-trap ,label: "Life_Control pH"} 
-    class LG7 big;
-    LG7 --> MCU
+
