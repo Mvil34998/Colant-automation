@@ -2,7 +2,11 @@ flowchart TD
 I1[Enter IDLE] --> I2[Ensure valve CLOSED]
 I2 --> I3[Read MIN and MAX]
 I3 --> I4[Debounce MIN and MAX]
-I4 --> I5[Periodic pH sample]
-I5 --> I6{MIN stable}
-I6 -- Yes --> I7[Go to FILLING]
-I6 -- No --> I3
+I4 --> I5[Check pH schedule every 3h]
+I5 --> I6{Run pH session now}
+I6 -- Yes --> I7[Sample and log pH for 1h]
+I6 -- No --> I8[Skip pH session]
+I7 --> I9{MIN stable}
+I8 --> I9
+I9 -- Yes --> I10[Go to FILLING]
+I9 -- No --> I3

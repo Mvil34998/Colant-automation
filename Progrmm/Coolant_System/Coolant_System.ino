@@ -18,12 +18,21 @@ static const uint8_t PIN_FLOW_PULSE = 5;   // Flowmeter pulses (interrupt-capabl
 static const uint8_t PIN_PH_ANALOG = A0;   // pH sensor analog output
 static const uint8_t PIN_SD_CS = 10;       // SD chip select (DFR0229 is SPI)
 static const uint8_t PIN_VALVE_RELAY = 4;  // Relay control for valve
+static const uint8_t PIN_STATUS_LED = 13;  // Built-in LED (optional status)
 
 // Constants
 const unsigned long PULSES_PER_LITER = 150;  // From Liquid Flow Sensor G1/2 wiki
 const unsigned long MAX_FILL_TIME_MS = 50000;    // NEED_USER_INPUT: define timeout
 const unsigned long MIN_STABLE_MS = 100;     // NEED_USER_INPUT: debounce MIN
 const unsigned long MAX_STABLE_MS = 300;     // NEED_USER_INPUT: debounce MAX
+
+// pH measurement (based on ph_Meter_Template.ino for SEN0161)
+static const unsigned long PH_SESSION_EVERY_MS = 3UL * 60UL * 60UL * 1000UL;   // every 3 hours
+static const unsigned long PH_SESSION_DURATION_MS = 1UL * 60UL * 60UL * 1000UL; // for 1 hour
+static const unsigned long PH_SAMPLING_INTERVAL_MS = 20;   // template: 20ms
+static const unsigned long PH_PRINT_INTERVAL_MS = 800;     // template: 800ms
+static const unsigned long PH_SD_LOG_INTERVAL_MS = 60000;  // NEED_USER_INPUT: how often to log pH to SD during session
+static const float PH_OFFSET = 0.00f;                      // NEED_USER_INPUT: calibration offset for your probe/system
 
 // Status/state
 enum SystemState { BOOT,
@@ -52,6 +61,47 @@ void closeValve() {
 
 void openValve() {
   digitalWrite(PIN_VALVE_RELAY, HIGH);
+}
+
+double avergearray(int *arr, int number) {
+  int i;
+  int max, min;
+  double avg;
+  long amount = 0;
+  if (number <= 0) {
+    Serial.println("Error number for the array to avraging!/n");
+    return 0;
+  }
+  if (number < 5) {  // less than 5, calculated directly statistics
+    for (i = 0; i < number; i++) {
+      amount += arr[i];
+    }
+    avg = amount / number;
+    return avg;
+  } else {
+    if (arr[0] < arr[1]) {
+      min = arr[0];
+      max = arr[1];
+    } else {
+      min = arr[1];
+      max = arr[0];
+    }
+    for (i = 2; i < number; i++) {
+      if (arr[i] < min) {
+        amount += min;  // arr<min
+        min = arr[i];
+      } else {
+        if (arr[i] > max) {
+          amount += max;  // arr>max
+          max = arr[i];
+        } else {
+          amount += arr[i];  // min<=arr<=max
+        }
+      }  // if
+    }  // for
+    avg = (double)amount / (number - 2);
+  }  // if
+  return avg;
 }
 
 String readTimestamp() {
@@ -95,10 +145,129 @@ bool debounceLevel(bool (*levelFn)(), unsigned long stableMs) {
 }
 
 float samplePH() {
+  // One-shot pH read (kept for FILLING log). IDLE autonomous monitoring uses the session sampler below.
   const int raw = analogRead(PIN_PH_ANALOG);
-  // NEED_USER_INPUT: calibration factors; using sample formula from DFR SEN0161
   const float voltage = (raw * 5.0f) / 1024.0f;
-  return 3.5f * voltage;
+  return 3.5f * voltage + PH_OFFSET;
+}
+
+struct PhSessionState {
+  static const int ARRAY_LENGTH = 40;  // template: 40
+  int rawArray[ARRAY_LENGTH];
+  int rawIndex = 0;
+  bool sessionActive = false;
+
+  unsigned long nextSessionAtMs = 0;
+  unsigned long sessionStartMs = 0;
+  unsigned long lastSampleMs = 0;
+  unsigned long lastPrintMs = 0;
+  unsigned long lastSdLogMs = 0;
+
+  int lastRaw = 0;
+  float lastVoltage = 0.0f;
+  float lastPh = 0.0f;
+};
+
+PhSessionState phSession;
+
+bool logPhSample(const String &ts, int raw, float voltage, float ph, const String &status) {
+  File file = SD.open("/ph_log.csv", FILE_WRITE);
+  if (!file) {
+    return false;
+  }
+  file.print(ts);
+  file.print(',');
+  file.print(raw);
+  file.print(',');
+  file.print(voltage, 3);
+  file.print(',');
+  file.print(ph, 2);
+  file.print(',');
+  file.println(status);
+  file.close();
+  return true;
+}
+
+void phSessionStart(unsigned long now) {
+  phSession.sessionActive = true;
+  phSession.sessionStartMs = now;
+  phSession.lastSampleMs = 0;
+  phSession.lastPrintMs = 0;
+  phSession.lastSdLogMs = 0;
+  phSession.rawIndex = 0;
+  for (int i = 0; i < PhSessionState::ARRAY_LENGTH; i++) {
+    phSession.rawArray[i] = 0;
+  }
+  Serial.println(F("[PH] Session START (IDLE autonomous)"));
+}
+
+void phSessionStop(unsigned long now, const __FlashStringHelper *reason) {
+  phSession.sessionActive = false;
+  phSession.nextSessionAtMs = now + PH_SESSION_EVERY_MS;
+  Serial.print(F("[PH] Session STOP: "));
+  Serial.println(reason);
+}
+
+void tickPhSession(SystemState currentState, unsigned long now) {
+  if (currentState != IDLE) {
+    if (phSession.sessionActive) {
+      phSessionStop(now, F("ABORTED_BY_STATE"));
+    }
+    return;
+  }
+
+  if (phSession.nextSessionAtMs == 0) {
+    phSession.nextSessionAtMs = now + PH_SESSION_EVERY_MS;
+  }
+
+  if (!phSession.sessionActive) {
+    if ((long)(now - phSession.nextSessionAtMs) >= 0) {
+      phSessionStart(now);
+    }
+    return;
+  }
+
+  if (PH_SESSION_DURATION_MS > 0 && now - phSession.sessionStartMs >= PH_SESSION_DURATION_MS) {
+    phSessionStop(now, F("DURATION_DONE"));
+    return;
+  }
+
+  if (PH_SAMPLING_INTERVAL_MS > 0) {
+    if (phSession.lastSampleMs == 0 || now - phSession.lastSampleMs >= PH_SAMPLING_INTERVAL_MS) {
+      phSession.lastRaw = analogRead(PIN_PH_ANALOG);
+      phSession.rawArray[phSession.rawIndex++] = phSession.lastRaw;
+      if (phSession.rawIndex >= PhSessionState::ARRAY_LENGTH) {
+        phSession.rawIndex = 0;
+      }
+
+      const float avgRaw = (float)avergearray(phSession.rawArray, PhSessionState::ARRAY_LENGTH);
+      phSession.lastVoltage = (avgRaw * 5.0f) / 1024.0f;
+      phSession.lastPh = 3.5f * phSession.lastVoltage + PH_OFFSET;
+
+      phSession.lastSampleMs = now;
+    }
+  }
+
+  if (PH_PRINT_INTERVAL_MS > 0) {
+    if (phSession.lastPrintMs == 0 || now - phSession.lastPrintMs >= PH_PRINT_INTERVAL_MS) {
+      Serial.print(F("[PH] Voltage:"));
+      Serial.print(phSession.lastVoltage, 2);
+      Serial.print(F(" pH:"));
+      Serial.println(phSession.lastPh, 2);
+      digitalWrite(PIN_STATUS_LED, digitalRead(PIN_STATUS_LED) ^ 1);
+      phSession.lastPrintMs = now;
+    }
+  }
+
+  if (PH_SD_LOG_INTERVAL_MS > 0) {
+    if (phSession.lastSdLogMs == 0 || now - phSession.lastSdLogMs >= PH_SD_LOG_INTERVAL_MS) {
+      const String ts = readTimestamp();
+      if (!logPhSample(ts, phSession.lastRaw, phSession.lastVoltage, phSession.lastPh, "OK")) {
+        Serial.println(F("[PH][ERR] SD log failed (/ph_log.csv)"));
+      }
+      phSession.lastSdLogMs = now;
+    }
+  }
 }
 
 bool logFillCycle(const String &startTs, const String &stopTs, unsigned long pulses, float ph, const String &status) {
@@ -126,6 +295,9 @@ bool logFillCycle(const String &startTs, const String &stopTs, unsigned long pul
 bool initSubsystems() {
   pinMode(PIN_VALVE_RELAY, OUTPUT);
   closeValve();
+
+  pinMode(PIN_STATUS_LED, OUTPUT);
+  digitalWrite(PIN_STATUS_LED, LOW);
 
   pinMode(PIN_LEVEL_MIN, INPUT_PULLUP);  // NEED_USER_INPUT: adjust for sensor type
   pinMode(PIN_LEVEL_MAX, INPUT_PULLUP);  // NEED_USER_INPUT: adjust for sensor type
@@ -192,14 +364,8 @@ bool handleFilling() {
 }
 
 void loop() {
-  static unsigned long lastAnalogLogMs = 0;
   const unsigned long now = millis();
-  if (now - lastAnalogLogMs >= 500) {
-    const int phRaw = analogRead(PIN_PH_ANALOG);
-    Serial.print(F("[ANALOG] ph_raw="));
-    Serial.println(phRaw);
-    lastAnalogLogMs = now;
-  }
+  tickPhSession(state, now);
 
   if (pulseCount != lastReportedPulseCount || (now - lastFlowReportMs >= 1000)) {
     Serial.print(F("[FLOW] count="));
